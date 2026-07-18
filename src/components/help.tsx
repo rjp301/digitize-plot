@@ -3,15 +3,8 @@ import { useStep } from "usehooks-ts";
 import { useSetAtom } from "jotai/react";
 import { showHelpAtom } from "@/lib/store";
 import { cn } from "@/lib/utils";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { Button } from "./ui/button";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import { Button, Card, Heading, Text } from "@radix-ui/themes";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
 type Step = { title: string; content: string; coords: string };
 
@@ -50,18 +43,23 @@ const Help: React.FC = () => {
     helpers;
 
   return (
-    <Card className={cn("absolute m-4 grid w-96 gap-6", currentStep.coords)}>
-      <CardHeader>
-        <CardTitle>? - {currentStep.title}</CardTitle>
-        <CardDescription>{currentStep.content}</CardDescription>
-      </CardHeader>
-      <CardFooter className="grid grid-cols-3 gap-2">
+    <Card
+      size="3"
+      className={cn("absolute m-4 grid w-96 gap-6", currentStep.coords)}
+    >
+      <header>
+        <Heading size="3">? - {currentStep.title}</Heading>
+        <Text size="2" color="gray">
+          {currentStep.content}
+        </Text>
+      </header>
+      <footer className="grid grid-cols-3 gap-2">
         <Button
           className="w-full"
           disabled={!canGoToPrevStep}
           onClick={goToPrevStep}
         >
-          <IconArrowLeft />
+          <ArrowLeftIcon className="size-4" />
           Prev
         </Button>
         <Button
@@ -70,16 +68,16 @@ const Help: React.FC = () => {
           onClick={goToNextStep}
         >
           Next
-          <IconArrowRight />
+          <ArrowRightIcon className="size-4" />
         </Button>
         <Button
           className="w-full"
-          variant="secondary"
+          variant="soft"
           onClick={() => setShowHelp(false)}
         >
           Go away
         </Button>
-      </CardFooter>
+      </footer>
     </Card>
   );
 };

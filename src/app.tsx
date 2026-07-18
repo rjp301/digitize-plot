@@ -24,17 +24,17 @@ import useCenterImage from "./hooks/use-center-image";
 import useCursor from "./hooks/use-cursor";
 import useCopyPoints from "./hooks/use-copy-points";
 import { TooltipProvider } from "./components/ui/tooltip";
-import { Button } from "./components/ui/button";
 import DebugToggle from "./components/controls/debug-toggle";
 import HelpToggle from "./components/controls/help-toggle";
 import CanvasControls from "./components/controls/canvas-controls";
-import {
-  IconCopy,
-  IconCopyCheck,
-  IconDownload,
-  IconEraser,
-} from "@tabler/icons-react";
 import RadixProvider from "./components/radix-provider";
+import { Button } from "@radix-ui/themes";
+import {
+  CopyCheckIcon,
+  CopyIcon,
+  DownloadIcon,
+  EraserIcon,
+} from "lucide-react";
 
 function App() {
   const [image, setImage] = useAtom(imageAtom);
@@ -65,41 +65,41 @@ function App() {
     <RadixProvider>
       <TooltipProvider>
         <div className="flex h-screen w-full">
-          <aside className="bg-sidebar flex w-60 flex-col gap-2 overflow-y-auto border-r">
-            <header className="bg-sidebar sticky top-0 z-50 border-b p-4 pb-6">
+          <aside className="bg-panel flex w-60 flex-col gap-2 overflow-y-auto border-r">
+            <header className="bg-panel sticky top-0 z-50 border-b p-4 pb-6 backdrop-blur-lg">
               <Logo />
             </header>
             <section className="flex-1 px-4">
               <DataTable coordsConverter={coordsConverter} />
             </section>
-            <footer className="bg-sidebar sticky bottom-0 z-50 grid gap-2 border-t p-4">
+            <footer className="bg-panel sticky bottom-0 z-50 grid gap-2 border-t p-4 backdrop-blur-lg">
               <Button
-                variant="secondary"
+                variant="soft"
                 disabled={points.length === 0}
                 onClick={clearPoints}
               >
-                <IconEraser />
+                <EraserIcon className="size-4" />
                 Clear Points
               </Button>
               <Button
-                variant="secondary"
+                variant="soft"
                 disabled={points.length === 0}
                 onClick={copyPoints}
               >
                 {isCopied ? (
-                  <IconCopyCheck className="text-green-500" />
+                  <CopyCheckIcon className="text-green-8 size-4" />
                 ) : (
-                  <IconCopy />
+                  <CopyIcon className="size-4" />
                 )}
                 Copy Points
               </Button>
               <DownloadLink coordsConverter={coordsConverter}>
                 <Button
-                  variant="default"
+                  highContrast
                   disabled={points.length === 0}
                   className="w-full"
                 >
-                  <IconDownload />
+                  <DownloadIcon className="size-4" />
                   Download CSV
                 </Button>
               </DownloadLink>
@@ -127,7 +127,7 @@ function App() {
             )}
             {image && showHelp && <Help />}
           </main>
-          <aside className="bg-sidebar flex w-60 flex-col justify-between divide-y overflow-y-auto border-l">
+          <aside className="bg-panel flex w-60 flex-col justify-between divide-y overflow-y-auto border-l">
             <div className="divide-y">
               <Bullseye canvasRef={canvasRef} mousePoint={mousePoint} />
               <MouseCoords

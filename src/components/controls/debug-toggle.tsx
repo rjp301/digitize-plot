@@ -8,7 +8,7 @@ const DebugToggle: React.FC = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <Switch checked={debug} onCheckedChange={setDebug} id="debug-mode" />
+      <Switch highContrast checked={debug} onCheckedChange={setDebug} id="debug-mode" />
       <Text as="label" htmlFor="debug-mode" weight="medium" size="1">
         Debug Mode
       </Text>
