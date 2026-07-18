@@ -5,15 +5,9 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
     },
-    "types": [
-      "node"
-    ]
+    "types": ["node"],
   },
-  "include": [
-    "./worker-configuration.d.ts"
-  ]
+  "include": ["src/**/*", "./worker-configuration.d.ts"],
 }

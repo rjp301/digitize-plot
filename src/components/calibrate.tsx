@@ -1,11 +1,6 @@
 import React from "react";
 import type { Calibrations } from "@/lib/interpolators/types";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from "./ui/input-group";
+import { Heading, Text, TextField } from "@radix-ui/themes";
 
 export type Props = {
   calibrations: Calibrations;
@@ -27,66 +22,70 @@ export default function Calibrate(props: Props) {
 
   return (
     <article className="grid gap-5 p-4">
-      <h3 className="text-muted-foreground text-sm font-semibold uppercase">
+      <Heading as="h3" color="gray" size="2" className="uppercase">
         Calibrations
-      </h3>
+      </Heading>
       <section className="grid gap-2">
-        <h4 className="text-muted-foreground text-xs font-semibold uppercase">
+        <Heading as="h4" color="gray" size="1" className="uppercase">
           X-Axis
-        </h4>
+        </Heading>
 
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>X1</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
-            type="number"
-            value={props.calibrations.x1.value}
-            onChange={(e) => updateValue(e, "x1")}
-            onFocus={(e) => e.target.select()}
-          />
-        </InputGroup>
+        <TextField.Root
+          type="number"
+          value={props.calibrations.x1.value}
+          onChange={(e) => updateValue(e, "x1")}
+          onFocus={(e) => e.target.select()}
+        >
+          <TextField.Slot>
+            <Text size="2" color="gray">
+              X1
+            </Text>
+          </TextField.Slot>
+        </TextField.Root>
 
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>X2</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
-            type="number"
-            value={props.calibrations.x2.value}
-            onChange={(e) => updateValue(e, "x2")}
-            onFocus={(e) => e.target.select()}
-          />
-        </InputGroup>
+        <TextField.Root
+          type="number"
+          value={props.calibrations.x2.value}
+          onChange={(e) => updateValue(e, "x2")}
+          onFocus={(e) => e.target.select()}
+        >
+          <TextField.Slot>
+            <Text size="2" color="gray">
+              X2
+            </Text>
+          </TextField.Slot>
+        </TextField.Root>
       </section>
       <div className="grid gap-2">
-        <h4 className="text-muted-foreground text-xs font-semibold uppercase">
+        <Heading as="h4" color="gray" size="1" className="uppercase">
           Y-Axis
-        </h4>
+        </Heading>
 
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>Y1</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
-            type="number"
-            value={props.calibrations.y1.value}
-            onChange={(e) => updateValue(e, "y1")}
-            onFocus={(e) => e.target.select()}
-          />
-        </InputGroup>
+        <TextField.Root
+          type="number"
+          value={props.calibrations.y1.value}
+          onChange={(e) => updateValue(e, "y1")}
+          onFocus={(e) => e.target.select()}
+        >
+          <TextField.Slot>
+            <Text size="2" color="gray">
+              Y1
+            </Text>
+          </TextField.Slot>
+        </TextField.Root>
 
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>Y2</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
-            type="number"
-            value={props.calibrations.y2.value}
-            onChange={(e) => updateValue(e, "y2")}
-            onFocus={(e) => e.target.select()}
-          />
-        </InputGroup>
+        <TextField.Root
+          type="number"
+          value={props.calibrations.y2.value}
+          onChange={(e) => updateValue(e, "y2")}
+          onFocus={(e) => e.target.select()}
+        >
+          <TextField.Slot>
+            <Text size="2" color="gray">
+              Y2
+            </Text>
+          </TextField.Slot>
+        </TextField.Root>
       </div>
     </article>
   );

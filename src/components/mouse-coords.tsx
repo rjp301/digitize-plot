@@ -1,10 +1,5 @@
+import { Heading, Text, TextField } from "@radix-ui/themes";
 import Point from "src/geometry/point";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from "./ui/input-group";
 
 export type Props = {
   mousePoint: Point | undefined;
@@ -18,22 +13,24 @@ export default function MouseCoords(props: Props) {
 
   return (
     <div className="grid gap-3 p-4">
-      <h3 className="text-muted-foreground text-sm font-semibold uppercase">
+      <Heading size="2" color="gray" className="uppercase" as="h3">
         Mouse Coordinates
-      </h3>
+      </Heading>
       <div className="grid gap-2">
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>X</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput readOnly value={x.toLocaleString()} />
-        </InputGroup>
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>Y</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput readOnly value={y.toLocaleString()} />
-        </InputGroup>
+        <TextField.Root readOnly value={x.toLocaleString()}>
+          <TextField.Slot side="left">
+            <Text color="gray" size="2">
+              X
+            </Text>
+          </TextField.Slot>
+        </TextField.Root>
+        <TextField.Root readOnly value={y.toLocaleString()}>
+          <TextField.Slot side="left">
+            <Text color="gray" size="2">
+              Y
+            </Text>
+          </TextField.Slot>
+        </TextField.Root>
       </div>
     </div>
   );

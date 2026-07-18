@@ -28,7 +28,7 @@
     "jotai": "^2.9.3",
     "lucide-react": "^0.439.0",
     "prop-types": "^15.8.1",
-    "radix-themes-tw": "^0.2.3",
+    "radix-themes-tw": "^1.1.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.4",
     "react-csv": "^2.2.2",
