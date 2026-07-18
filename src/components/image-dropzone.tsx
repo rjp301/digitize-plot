@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import { useDropzone } from "react-dropzone";
-import { Button } from "./ui/button";
 import { IconX } from "@tabler/icons-react";
 
 import { monitorForExternal } from "@atlaskit/pragmatic-drag-and-drop/external/adapter";
 import { containsFiles } from "@atlaskit/pragmatic-drag-and-drop/external/file";
 import { cn } from "@/lib/utils";
+import { IconButton, Text } from "@radix-ui/themes";
+import { XIcon } from "lucide-react";
 
 type Props = {
   file: File | undefined;
@@ -39,14 +40,16 @@ const ImageDropzone: React.FC<Props> = ({ file, setFile }) => {
     return (
       <div className="relative overflow-clip rounded-xl border">
         <img src={url} alt="Uploaded plot" className="h-full object-contain" />
-        <Button
-          className="group absolute top-4 right-4"
-          size="icon-sm"
-          variant="outline"
+        <IconButton
+          size="1"
+          color="red"
+          radius="full"
+          className="absolute top-2 right-2"
+          variant="soft"
           onClick={() => setFile(undefined)}
         >
-          <IconX className="group-hover:text-destructive" />
-        </Button>
+          <XIcon className="size-4" />
+        </IconButton>
       </div>
     );
   }
@@ -55,19 +58,14 @@ const ImageDropzone: React.FC<Props> = ({ file, setFile }) => {
     <div
       {...getRootProps()}
       className={cn(
-        "bg-secondary/30 flex h-24 w-full cursor-pointer items-center justify-center rounded-xl border border-dashed transition-colors",
-        isDragging && "border-primary bg-primary/10",
+        "bg-gray-2 flex h-24 w-full cursor-pointer items-center justify-center rounded-xl border border-dashed transition-colors",
+        isDragging && "border-accent-7 bg-accent-2",
       )}
     >
       <input {...getInputProps()} />
-      <span
-        className={cn(
-          "text-muted-foreground text-sm",
-          isDragging && "text-foreground",
-        )}
-      >
+      <Text size="1" color={isDragging ? undefined : "gray"}>
         Drop image here
-      </span>
+      </Text>
     </div>
   );
 };

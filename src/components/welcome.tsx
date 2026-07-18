@@ -1,16 +1,7 @@
 import React from "react";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { Button } from "./ui/button";
-import { IconArrowRight } from "@tabler/icons-react";
 import ImageDropzone from "./image-dropzone";
+import { Button, Card, Heading, Text } from "@radix-ui/themes";
+import { ArrowRightIcon } from "lucide-react";
 
 export type Props = {
   onImageLoad: (image: HTMLImageElement) => void;
@@ -37,28 +28,29 @@ const Welcome: React.FC<Props> = ({ onImageLoad }) => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center p-4">
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <CardTitle>Welcome to Digitize Plot</CardTitle>
+      <Card size="3" className="grid w-full max-w-lg gap-5">
+        <header className="grid gap-2">
+          <Heading size="3">Welcome to Digitize Plot</Heading>
 
-          <CardDescription>
+          <Text size="2" color="gray" as="p">
             A tool to quickly and painlessly convert images of plotted data into
             raw points.
-          </CardDescription>
+          </Text>
 
-          <CardDescription>
+          <Text size="2" color="gray" as="p">
             To get started, choose an image of a plot to be digitized. Or if you
             just want to try out the app, start with a sample image.
-          </CardDescription>
-        </CardHeader>
+          </Text>
+        </header>
 
-        <CardContent>
-          <ImageDropzone file={file} setFile={setFile} />
-        </CardContent>
+        <ImageDropzone file={file} setFile={setFile} />
 
-        <CardFooter className="grid grid-cols-2 gap-3 border-t">
-          <Button onClick={useSample}>Use sample image</Button>
+        <footer className="grid grid-cols-2 gap-3">
+          <Button highContrast onClick={useSample}>
+            Use sample image
+          </Button>
           <Button
+            highContrast
             onClick={() => {
               if (!file) return;
               const url = URL.createObjectURL(file);
@@ -67,9 +59,9 @@ const Welcome: React.FC<Props> = ({ onImageLoad }) => {
             disabled={!file}
           >
             Let's go
-            <IconArrowRight />
+            <ArrowRightIcon className="size-4" />
           </Button>
-        </CardFooter>
+        </footer>
       </Card>
     </div>
   );
