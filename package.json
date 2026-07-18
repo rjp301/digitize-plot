@@ -17,6 +17,7 @@
     "@astrojs/react": "^6.0.1",
     "@atlaskit/pragmatic-drag-and-drop": "^1.7.9",
     "@fontsource-variable/geist-mono": "^5.2.7",
+    "@radix-ui/themes": "^3.3.0",
     "@tabler/icons-react": "^3.40.0",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",

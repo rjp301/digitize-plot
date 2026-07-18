@@ -1,14 +1,14 @@
 import React from "react";
 
-import Bullseye from "src/components/bullseye";
-import DataTable from "src/components/data-table";
-import DownloadLink from "src/components/download";
-import MouseCoords from "src/components/mouse-coords";
+import Bullseye from "@/components/bullseye";
+import DataTable from "@/components/data-table";
+import DownloadLink from "@/components/download";
+import MouseCoords from "@/components/mouse-coords";
 import Welcome from "@/components/welcome";
-import Calibrate from "src/components/calibrate";
-import Help from "src/components/help";
+import Calibrate from "@/components/calibrate";
+import Help from "@/components/help";
 
-import Logo from "src/components/logo";
+import Logo from "@/components/logo";
 import { useAtom } from "jotai/react";
 import {
   calibrationsAtom,
@@ -34,6 +34,7 @@ import {
   IconDownload,
   IconEraser,
 } from "@tabler/icons-react";
+import RadixProvider from "./components/radix-provider";
 
 function App() {
   const [image, setImage] = useAtom(imageAtom);
@@ -61,89 +62,91 @@ function App() {
   const { copyPoints, isCopied } = useCopyPoints(coordsConverter);
 
   return (
-    <TooltipProvider>
-      <div className="flex h-screen w-full">
-        <aside className="bg-sidebar flex w-60 flex-col gap-2 overflow-y-auto border-r">
-          <header className="bg-sidebar sticky top-0 z-50 border-b p-4 pb-6">
-            <Logo />
-          </header>
-          <section className="flex-1 px-4">
-            <DataTable coordsConverter={coordsConverter} />
-          </section>
-          <footer className="bg-sidebar sticky bottom-0 z-50 grid gap-2 border-t p-4">
-            <Button
-              variant="secondary"
-              disabled={points.length === 0}
-              onClick={clearPoints}
-            >
-              <IconEraser />
-              Clear Points
-            </Button>
-            <Button
-              variant="secondary"
-              disabled={points.length === 0}
-              onClick={copyPoints}
-            >
-              {isCopied ? (
-                <IconCopyCheck className="text-green-500" />
-              ) : (
-                <IconCopy />
-              )}
-              Copy Points
-            </Button>
-            <DownloadLink coordsConverter={coordsConverter}>
+    <RadixProvider>
+      <TooltipProvider>
+        <div className="flex h-screen w-full">
+          <aside className="bg-sidebar flex w-60 flex-col gap-2 overflow-y-auto border-r">
+            <header className="bg-sidebar sticky top-0 z-50 border-b p-4 pb-6">
+              <Logo />
+            </header>
+            <section className="flex-1 px-4">
+              <DataTable coordsConverter={coordsConverter} />
+            </section>
+            <footer className="bg-sidebar sticky bottom-0 z-50 grid gap-2 border-t p-4">
               <Button
-                variant="default"
+                variant="secondary"
                 disabled={points.length === 0}
-                className="w-full"
+                onClick={clearPoints}
               >
-                <IconDownload />
-                Download CSV
+                <IconEraser />
+                Clear Points
               </Button>
-            </DownloadLink>
-          </footer>
-        </aside>
-        <main className="relative flex-1" style={{ cursor }}>
-          {image ? (
-            <>
-              <Canvas
-                canvasRef={canvasRef}
-                mousePoint={mousePoint}
-                setMousePoint={setMousePoint}
+              <Button
+                variant="secondary"
+                disabled={points.length === 0}
+                onClick={copyPoints}
+              >
+                {isCopied ? (
+                  <IconCopyCheck className="text-green-500" />
+                ) : (
+                  <IconCopy />
+                )}
+                Copy Points
+              </Button>
+              <DownloadLink coordsConverter={coordsConverter}>
+                <Button
+                  variant="default"
+                  disabled={points.length === 0}
+                  className="w-full"
+                >
+                  <IconDownload />
+                  Download CSV
+                </Button>
+              </DownloadLink>
+            </footer>
+          </aside>
+          <main className="relative flex-1" style={{ cursor }}>
+            {image ? (
+              <>
+                <Canvas
+                  canvasRef={canvasRef}
+                  mousePoint={mousePoint}
+                  setMousePoint={setMousePoint}
+                />
+                <div className="absolute right-4 bottom-4">
+                  <CanvasControls canvasRef={canvasRef} />
+                </div>
+              </>
+            ) : (
+              <Welcome
+                onImageLoad={(img) => {
+                  setImage(img);
+                  centerImage(img);
+                }}
               />
-              <div className="absolute right-4 bottom-4">
-                <CanvasControls canvasRef={canvasRef} />
-              </div>
-            </>
-          ) : (
-            <Welcome
-              onImageLoad={(img) => {
-                setImage(img);
-                centerImage(img);
-              }}
-            />
-          )}
-          {image && showHelp && <Help />}
-        </main>
-        <aside className="bg-sidebar flex w-60 flex-col justify-between divide-y overflow-y-auto border-l">
-          <div className="divide-y">
-            <Bullseye canvasRef={canvasRef} mousePoint={mousePoint} />
-            <MouseCoords
-              coordsConverter={coordsConverter}
-              mousePoint={mousePoint}
-            />
-            <Calibrate
-              calibrations={calibrations}
-              setCalibrations={setCalibrations}
-            />
-          </div>
-          <div className="flex w-full justify-between gap-4 p-6">
-            <DebugToggle />
-            <HelpToggle />
-          </div>
-        </aside>
-      </div>
-    </TooltipProvider>
+            )}
+            {image && showHelp && <Help />}
+          </main>
+          <aside className="bg-sidebar flex w-60 flex-col justify-between divide-y overflow-y-auto border-l">
+            <div className="divide-y">
+              <Bullseye canvasRef={canvasRef} mousePoint={mousePoint} />
+              <MouseCoords
+                coordsConverter={coordsConverter}
+                mousePoint={mousePoint}
+              />
+              <Calibrate
+                calibrations={calibrations}
+                setCalibrations={setCalibrations}
+              />
+            </div>
+            <div className="flex w-full justify-between gap-4 p-6">
+              <DebugToggle />
+              <HelpToggle />
+            </div>
+          </aside>
+        </div>
+      </TooltipProvider>
+    </RadixProvider>
   );
 }
 
