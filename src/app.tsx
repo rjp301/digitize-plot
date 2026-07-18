@@ -23,7 +23,6 @@ import usePoints from "./hooks/use-points";
 import useCenterImage from "./hooks/use-center-image";
 import useCursor from "./hooks/use-cursor";
 import useCopyPoints from "./hooks/use-copy-points";
-import { TooltipProvider } from "./components/ui/tooltip";
 import DebugToggle from "./components/controls/debug-toggle";
 import HelpToggle from "./components/controls/help-toggle";
 import CanvasControls from "./components/controls/canvas-controls";
@@ -63,89 +62,87 @@ function App() {
 
   return (
     <RadixProvider>
-      <TooltipProvider>
-        <div className="flex h-screen w-full">
-          <aside className="bg-panel flex w-60 flex-col gap-2 overflow-y-auto border-r">
-            <header className="bg-panel sticky top-0 z-50 border-b p-4 pb-6 backdrop-blur-lg">
-              <Logo />
-            </header>
-            <section className="flex-1 px-4">
-              <DataTable coordsConverter={coordsConverter} />
-            </section>
-            <footer className="bg-panel sticky bottom-0 z-50 grid gap-2 border-t p-4 backdrop-blur-lg">
+      <div className="flex h-screen w-full">
+        <aside className="bg-panel flex w-60 flex-col gap-2 overflow-y-auto border-r">
+          <header className="bg-panel sticky top-0 z-50 border-b p-4 pb-6 backdrop-blur-lg">
+            <Logo />
+          </header>
+          <section className="flex-1 px-4">
+            <DataTable coordsConverter={coordsConverter} />
+          </section>
+          <footer className="bg-panel sticky bottom-0 z-50 grid gap-2 border-t p-4 backdrop-blur-lg">
+            <Button
+              variant="soft"
+              disabled={points.length === 0}
+              onClick={clearPoints}
+            >
+              <EraserIcon className="size-4" />
+              Clear Points
+            </Button>
+            <Button
+              variant="soft"
+              disabled={points.length === 0}
+              onClick={copyPoints}
+            >
+              {isCopied ? (
+                <CopyCheckIcon className="text-green-8 size-4" />
+              ) : (
+                <CopyIcon className="size-4" />
+              )}
+              Copy Points
+            </Button>
+            <DownloadLink coordsConverter={coordsConverter}>
               <Button
-                variant="soft"
+                highContrast
                 disabled={points.length === 0}
-                onClick={clearPoints}
+                className="w-full"
               >
-                <EraserIcon className="size-4" />
-                Clear Points
+                <DownloadIcon className="size-4" />
+                Download CSV
               </Button>
-              <Button
-                variant="soft"
-                disabled={points.length === 0}
-                onClick={copyPoints}
-              >
-                {isCopied ? (
-                  <CopyCheckIcon className="text-green-8 size-4" />
-                ) : (
-                  <CopyIcon className="size-4" />
-                )}
-                Copy Points
-              </Button>
-              <DownloadLink coordsConverter={coordsConverter}>
-                <Button
-                  highContrast
-                  disabled={points.length === 0}
-                  className="w-full"
-                >
-                  <DownloadIcon className="size-4" />
-                  Download CSV
-                </Button>
-              </DownloadLink>
-            </footer>
-          </aside>
-          <main className="relative flex-1" style={{ cursor }}>
-            {image ? (
-              <>
-                <Canvas
-                  canvasRef={canvasRef}
-                  mousePoint={mousePoint}
-                  setMousePoint={setMousePoint}
-                />
-                <div className="absolute right-4 bottom-4">
-                  <CanvasControls canvasRef={canvasRef} />
-                </div>
-              </>
-            ) : (
-              <Welcome
-                onImageLoad={(img) => {
-                  setImage(img);
-                  centerImage(img);
-                }}
-              />
-            )}
-            {image && showHelp && <Help />}
-          </main>
-          <aside className="bg-panel flex w-60 flex-col justify-between divide-y overflow-y-auto border-l">
-            <div className="divide-y">
-              <Bullseye canvasRef={canvasRef} mousePoint={mousePoint} />
-              <MouseCoords
-                coordsConverter={coordsConverter}
+            </DownloadLink>
+          </footer>
+        </aside>
+        <main className="relative flex-1" style={{ cursor }}>
+          {image ? (
+            <>
+              <Canvas
+                canvasRef={canvasRef}
                 mousePoint={mousePoint}
+                setMousePoint={setMousePoint}
               />
-              <Calibrate
-                calibrations={calibrations}
-                setCalibrations={setCalibrations}
-              />
-            </div>
-            <div className="flex w-full justify-between gap-4 p-6">
-              <DebugToggle />
-              <HelpToggle />
-            </div>
-          </aside>
-        </div>
-      </TooltipProvider>
+              <div className="absolute right-4 bottom-4">
+                <CanvasControls canvasRef={canvasRef} />
+              </div>
+            </>
+          ) : (
+            <Welcome
+              onImageLoad={(img) => {
+                setImage(img);
+                centerImage(img);
+              }}
+            />
+          )}
+          {image && showHelp && <Help />}
+        </main>
+        <aside className="bg-panel flex w-60 flex-col justify-between divide-y overflow-y-auto border-l">
+          <div className="divide-y">
+            <Bullseye canvasRef={canvasRef} mousePoint={mousePoint} />
+            <MouseCoords
+              coordsConverter={coordsConverter}
+              mousePoint={mousePoint}
+            />
+            <Calibrate
+              calibrations={calibrations}
+              setCalibrations={setCalibrations}
+            />
+          </div>
+          <div className="flex w-full justify-between gap-4 p-6">
+            <DebugToggle />
+            <HelpToggle />
+          </div>
+        </aside>
+      </div>
     </RadixProvider>
   );
 }

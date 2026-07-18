@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { useDropzone } from "react-dropzone";
-import { IconX } from "@tabler/icons-react";
-
 import { monitorForExternal } from "@atlaskit/pragmatic-drag-and-drop/external/adapter";
 import { containsFiles } from "@atlaskit/pragmatic-drag-and-drop/external/file";
 import { cn } from "@/lib/utils";
