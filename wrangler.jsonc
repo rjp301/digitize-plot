@@ -1,9 +1,12 @@
 {
-	"$schema": "./node_modules/wrangler/config-schema.json",
-	"compatibility_date": "2026-07-18",
-	"compatibility_flags": ["global_fetch_strictly_public"],
-	"name": "astro",
-	"observability": {
-		"enabled": true
-	}
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "compatibility_date": "2026-07-18",
+  "compatibility_flags": ["global_fetch_strictly_public"],
+  "name": "astro",
+  "assets": {
+    "directory": "./dist",
+  },
+  "observability": {
+    "enabled": true,
+  },
 }
