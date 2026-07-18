@@ -1,15 +1,15 @@
-import { Link } from "@radix-ui/themes";
-import { ChartAreaIcon, ChartSplineIcon } from "lucide-react";
+import { Heading, Link } from "@radix-ui/themes";
+import { ChartSplineIcon } from "lucide-react";
 import React from "react";
 
 const Logo: React.FC = () => {
   return (
     <div className="flex flex-col gap-1">
       <h1 className="flex items-center gap-2">
-        <div className="bg-accent-3 text-accent-11 border-accent-7 rounded-md border p-1">
+        <div className="bg-accent-3 text-accent-12 border-accent-7 rounded-md border p-1">
           <ChartSplineIcon className="size-4" />
         </div>
-        <span className="text-lg font-bold">Digitize Plot</span>
+        <Heading size="4">Digitize Plot</Heading>
       </h1>
       <span className="text-muted-foreground text-xs">
         An app by{" "}
