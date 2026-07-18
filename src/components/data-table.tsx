@@ -5,9 +5,7 @@ import { hoveringPointIdAtom, pointsAtom } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import React from "react";
 import usePoints from "@/hooks/use-points";
-import { IconSearch } from "@tabler/icons-react";
-import Empty from "./ui/empty";
-import { Table } from "@radix-ui/themes";
+import { Heading, Table, Text } from "@radix-ui/themes";
 
 export type Props = {
   coordsConverter: (coords: Point) => Point;
@@ -22,17 +20,14 @@ const DataTable: React.FC<Props> = ({ coordsConverter }: Props) => {
 
   if (points.length === 0) {
     return (
-      <Empty.Root className="h-full px-4">
-        <Empty.Header>
-          <Empty.Media variant="icon">
-            <IconSearch className="size-4" />
-          </Empty.Media>
-          <Empty.Title>No points</Empty.Title>
-          <Empty.Description>
-            Click on the plot to add points, and they will appear here.
-          </Empty.Description>
-        </Empty.Header>
-      </Empty.Root>
+      <div className="flex h-full flex-col items-center justify-center gap-2 p-2">
+        <Heading size="2" align="center">
+          No points to display
+        </Heading>
+        <Text align="center" color="gray" size="1">
+          Click on the image to add points
+        </Text>
+      </div>
     );
   }
 
